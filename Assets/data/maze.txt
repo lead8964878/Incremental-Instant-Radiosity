@@ -1,0 +1,51 @@
+# Jees poks
+
+screen_width = 1024
+screen_height = 768
+downsample_frames = 1
+split_n = 4
+split_m = 4
+timer_individuals = 0
+record_video = 0
+camera_path = 3
+camera_path_scale = 6.0
+
+obj_file = mazefix2.obj
+obj_scale = 5.0
+obj_trans_x = -4.0
+obj_trans_y = 0.0
+obj_trans_z = -4.0
+obj_swap_yz = 0
+culling = 1
+flat_normals = 0
+
+light_x = 4.9
+light_y = 3.2
+light_z = -1.93
+light_x_scale = 8.0
+light_y_scale = 1.0
+light_z_scale = 3.5
+light_speed_xz = 0.8
+light_speed_y = 0.7
+light_intensity = 100.0
+light_size = 0.5
+
+normal_threshold = 0.8
+position_threshold = 0.5
+
+secondary_lights = 256
+primary_shadowmap_size = 1024
+secondary_shadowmap_size = 256
+indirect_boost = 1.0
+
+recalc_lights_min = 4
+recalc_lights_max = 8
+subdivide_edge = 2.0
+spot = 1
+reuse_secondary_lights = 1
+
+cupid = 1
+cupid_x = 4.0
+cupid_y = 0.8
+cupid_z = -2.5
+cupid_scale = 0.75

@@ -1,0 +1,123 @@
+#	3dto3d engine by tb-software.com (support@tb-software.com)
+#	Created by WaveFront Export Plugin 1.0 at Thu Oct 12 16:39:40 2006
+#	Alias Wavefront
+newmtl kamen_zid
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl kamen_zid_parapet
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl kamen_zid_prozor
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl pod
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl pod+tepih
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl pod-rub
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl rozeta
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl sprljci
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl staklo
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl staklo_crveno
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl staklo_plavo
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl staklo_zeleno
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl staklo_zuto
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl stupovi
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+
+newmtl zid_vani
+	Ns 0
+	d 1.000
+	illum 2
+	Kd 0.600 0.600 0.600
+	Ks 1.000 1.000 1.000
+	Ka 0.300 0.300 0.300
+

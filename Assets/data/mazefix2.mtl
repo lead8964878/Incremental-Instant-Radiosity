@@ -1,0 +1,16 @@
+newmtl phong2SG
+Ka 0.00 0.00 0.00
+Kd 0.7 0.52 0.35
+Ks 0.0 0.0 0.0
+Ns 8.0
+Tr 0.0
+illum 2
+map_Kd wood7.jpg
+newmtl phong3SG
+Ka 0.00 0.00 0.00
+Kd 0.55 0.42 0.23
+Ks 0.0 0.0 0.0
+Ns 8.0
+Tr 0.0
+illum 2
+map_Kd wood5.jpg
