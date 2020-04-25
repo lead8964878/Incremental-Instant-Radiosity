@@ -94,6 +94,7 @@ public class VPLManager : MonoBehaviour
         Recalculate();
 
 
+        //圓形clipping
         //int sideCount = 20;
 
         //float perAngle = 360 / sideCount * Mathf.Deg2Rad;
@@ -155,8 +156,7 @@ public class VPLManager : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(PrimaryLight.transform.rotation);
-        //Debug.Log("---");
+
         Light[] transforms = VPLCollector.GetComponentsInChildren<Light>();
         List<int> deletedIdxList = new List<int>();
         for (int i = 0; i < transforms.Length; i++)
@@ -179,10 +179,7 @@ public class VPLManager : MonoBehaviour
 
                 if(rayHit)
                 {
-
                     deletedIdxList.Add(i);
-                    //GetHitPointFromPrimaryLight(out RaycastHit hit);
-                    //transforms[i].transform.position = hit.point + hit.normal.normalized * 0.0001f;
                     continue;
                 }
 
@@ -193,10 +190,7 @@ public class VPLManager : MonoBehaviour
                     float angle = Mathf.Acos(Vector3.Dot(pointDir, PrimaryLight.transform.forward)) * Mathf.Rad2Deg;
                     if (angle > PrimaryLight.spotAngle / 2.0f)
                     {
-
                         deletedIdxList.Add(i);
-                        //GetHitPointFromPrimaryLight(out RaycastHit hit);
-                        //transforms[i].transform.position = hit.point + hit.normal.normalized * 0.0001f;
                     }
                 }
             }
@@ -210,8 +204,8 @@ public class VPLManager : MonoBehaviour
 
         Recalculate();
 
+        //透過Voronoi刪除新增
         //int remainVPLToDelete = minimalDeletedVPLPerFrame - deletedIdxList.Count;
-
 
         //List<int> removeList = new List<int>();
         ////取出最小距離VPL 刪除
