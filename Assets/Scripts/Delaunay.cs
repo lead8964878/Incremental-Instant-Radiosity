@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using UnityEngine;
 namespace Voronoi_Delaunay
 {
     class Delaunay
@@ -33,6 +34,7 @@ namespace Voronoi_Delaunay
             List<Triangle> delaunayTriangles = new List<Triangle>();
 
             Collections.allTriangles = new List<Triangle>();
+            Collections.allTriangles.Clear();
 
             List<int> open = new List<int>();
             List<int> closed = new List<int>();
@@ -92,6 +94,7 @@ namespace Voronoi_Delaunay
                     int currentTriangle = Collections.allTriangles.Count;
 
                     Collections.allTriangles.Add(triangle);
+
                     open.Add(currentTriangle);
 
                     if (!triangulationPoints[i].adjoinTriangles.Contains(currentTriangle))
@@ -123,15 +126,21 @@ namespace Voronoi_Delaunay
             }
             */
 
+            //Debug.Log("start");
             for (int i = 0; i < open.Count; i++)
             {
-                delaunayTriangles.Add(Collections.allTriangles[open[i]]);
-            }
 
+                delaunayTriangles.Add(Collections.allTriangles[open[i]]);
+                //Debug.Log(open[i]);
+            }
+            
             for (int i = 0; i < closed.Count; i++)
             {
+
                 delaunayTriangles.Add(Collections.allTriangles[closed[i]]);
+                //Debug.Log(closed[i]);
             }
+            //Debug.Log("end");
 
             return delaunayTriangles;
         }

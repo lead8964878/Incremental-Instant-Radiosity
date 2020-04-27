@@ -16,13 +16,18 @@ namespace Voronoi_Delaunay
 
             for (int i = 0; i < delaunayEdges.Count; i++)
             {
+
                 List<int> neighbours = new List<int>();
                 for (int j = 0; j < Collections.allPoints[delaunayEdges[i].start].adjoinTriangles.Count; j++)
                 {
+
+                    
+
                     for (int k = 0; k < Collections.allPoints[delaunayEdges[i].end].adjoinTriangles.Count; k++)
                     {
                         if (Collections.allPoints[delaunayEdges[i].start].adjoinTriangles[j] == Collections.allPoints[delaunayEdges[i].end].adjoinTriangles[k])
                         {
+
                             neighbours.Add(Collections.allPoints[delaunayEdges[i].start].adjoinTriangles[j]);
                         }
                     }
