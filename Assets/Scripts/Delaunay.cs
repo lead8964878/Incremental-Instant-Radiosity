@@ -29,123 +29,215 @@ namespace Voronoi_Delaunay
             return delaunayEdges;
         }
 
-        public static List<Triangle> Triangulate(Triangle superTriangle, List<Point> triangulationPoints)
+        public static List<Triangle> Triangulate(Triangle superTriangle, List<Point> triangulationPoints,int index)
         {
-            List<Triangle> delaunayTriangles = new List<Triangle>();
-
-            Collections.allTriangles = new List<Triangle>();
-            Collections.allTriangles.Clear();
-
-            List<int> open = new List<int>();
-            List<int> closed = new List<int>();
-
-            Collections.allTriangles.Add(superTriangle); ;
-            open.Add(0);
-
-            for (int i = 0; i < triangulationPoints.Count - 3; i++)
+            if (index == 1)
             {
+                List<Triangle> delaunayTriangles = new List<Triangle>();
 
-                List<DelaunayEdge> polygon = new List<DelaunayEdge>();
+                Collections.allTriangles1 = new List<Triangle>();
+                Collections.allTriangles1.Clear();
 
-                for (int j = open.Count - 1; j >= 0; j--)
+                List<int> open = new List<int>();
+                List<int> closed = new List<int>();
+
+                Collections.allTriangles1.Add(superTriangle); ;
+                open.Add(0);
+
+                for (int i = 0; i < triangulationPoints.Count - 3; i++)
                 {
-                    double dx = triangulationPoints.ElementAt(i).x - Collections.allTriangles[open[j]].center.x;
 
-                    if (dx > 0.0 && dx * dx > Collections.allTriangles[open[j]].radius * Collections.allTriangles[open[j]].radius)
+                    List<DelaunayEdge> polygon = new List<DelaunayEdge>();
+
+                    for (int j = open.Count - 1; j >= 0; j--)
                     {
-                        closed.Add(open[j]);
-                        open.RemoveAt(j);
-                        continue;
-                    }
+                        double dx = triangulationPoints.ElementAt(i).x - Collections.allTriangles1[open[j]].center.x;
 
-                    if (Collections.allTriangles[open[j]].ContainsInCircumcircle(triangulationPoints.ElementAt(i)))
-                    {
-                        polygon.Add(new DelaunayEdge(Collections.allTriangles[open[j]].vertex1, Collections.allTriangles[open[j]].vertex2));
-                        polygon.Add(new DelaunayEdge(Collections.allTriangles[open[j]].vertex2, Collections.allTriangles[open[j]].vertex3));
-                        polygon.Add(new DelaunayEdge(Collections.allTriangles[open[j]].vertex3, Collections.allTriangles[open[j]].vertex1));
-
-                        triangulationPoints[Collections.allTriangles[open[j]].vertex1].adjoinTriangles.Remove(open[j]);
-                        triangulationPoints[Collections.allTriangles[open[j]].vertex2].adjoinTriangles.Remove(open[j]);
-                        triangulationPoints[Collections.allTriangles[open[j]].vertex3].adjoinTriangles.Remove(open[j]);
-
-                        open.RemoveAt(j);
-
-                    }
-                }
-
-                for (int j = polygon.Count - 2; j >= 0; j--)
-                {
-                    for (int k = polygon.Count - 1; k >= j + 1; k--)
-                    {
-                        if (polygon[j] == polygon[k])
+                        if (dx > 0.0 && dx * dx > Collections.allTriangles1[open[j]].radius * Collections.allTriangles1[open[j]].radius)
                         {
-                            polygon.RemoveAt(k);
-                            polygon.RemoveAt(j);
-                            k--;
+                            closed.Add(open[j]);
+                            open.RemoveAt(j);
                             continue;
                         }
+
+                        if (Collections.allTriangles1[open[j]].ContainsInCircumcircle(triangulationPoints.ElementAt(i)))
+                        {
+                            polygon.Add(new DelaunayEdge(Collections.allTriangles1[open[j]].vertex1, Collections.allTriangles1[open[j]].vertex2));
+                            polygon.Add(new DelaunayEdge(Collections.allTriangles1[open[j]].vertex2, Collections.allTriangles1[open[j]].vertex3));
+                            polygon.Add(new DelaunayEdge(Collections.allTriangles1[open[j]].vertex3, Collections.allTriangles1[open[j]].vertex1));
+
+                            triangulationPoints[Collections.allTriangles1[open[j]].vertex1].adjoinTriangles.Remove(open[j]);
+                            triangulationPoints[Collections.allTriangles1[open[j]].vertex2].adjoinTriangles.Remove(open[j]);
+                            triangulationPoints[Collections.allTriangles1[open[j]].vertex3].adjoinTriangles.Remove(open[j]);
+
+                            open.RemoveAt(j);
+
+                        }
+                    }
+
+                    for (int j = polygon.Count - 2; j >= 0; j--)
+                    {
+                        for (int k = polygon.Count - 1; k >= j + 1; k--)
+                        {
+                            if (polygon[j] == polygon[k])
+                            {
+                                polygon.RemoveAt(k);
+                                polygon.RemoveAt(j);
+                                k--;
+                                continue;
+                            }
+                        }
+                    }
+
+                    for (int j = 0; j < polygon.Count; j++)
+                    {
+                        Triangle triangle = new Triangle(polygon[j].start, polygon[j].end, i, 1);
+
+                        int currentTriangle = Collections.allTriangles1.Count;
+
+                        Collections.allTriangles1.Add(triangle);
+
+                        open.Add(currentTriangle);
+
+                        if (!triangulationPoints[i].adjoinTriangles.Contains(currentTriangle))
+                        {
+                            triangulationPoints[i].adjoinTriangles.Add(currentTriangle);
+                        }
+                        if (!triangulationPoints[polygon[j].start].adjoinTriangles.Contains(currentTriangle))
+                        {
+                            triangulationPoints[polygon[j].start].adjoinTriangles.Add(currentTriangle);
+                        }
+                        if (!triangulationPoints[polygon[j].end].adjoinTriangles.Contains(currentTriangle))
+                        {
+                            triangulationPoints[polygon[j].end].adjoinTriangles.Add(currentTriangle);
+                        }
+
                     }
                 }
 
-                for (int j = 0; j < polygon.Count; j++)
+                //Debug.Log("start");
+                for (int i = 0; i < open.Count; i++)
                 {
-                    Triangle triangle = new Triangle(polygon[j].start, polygon[j].end, i);
 
-                    int currentTriangle = Collections.allTriangles.Count;
-
-                    Collections.allTriangles.Add(triangle);
-
-                    open.Add(currentTriangle);
-
-                    if (!triangulationPoints[i].adjoinTriangles.Contains(currentTriangle))
-                    {
-                        triangulationPoints[i].adjoinTriangles.Add(currentTriangle);
-                    }
-                    if (!triangulationPoints[polygon[j].start].adjoinTriangles.Contains(currentTriangle))
-                    {
-                        triangulationPoints[polygon[j].start].adjoinTriangles.Add(currentTriangle);
-                    }
-                    if (!triangulationPoints[polygon[j].end].adjoinTriangles.Contains(currentTriangle))
-                    {
-                        triangulationPoints[polygon[j].end].adjoinTriangles.Add(currentTriangle);
-                    }
-
+                    delaunayTriangles.Add(Collections.allTriangles1[open[i]]);
+                    //Debug.Log(open[i]);
                 }
-            }
 
-            /*
-            for (int i = 0; i < Subjects.allPoints.Count - 3; i++)
-            {
-                for (int j = 0; j < Subjects.allPoints[i].adjoinTriangles.Count; j++)
+                for (int i = 0; i < closed.Count; i++)
                 {
-                    if (!(open.Contains(Subjects.allPoints[i].adjoinTriangles[j]) || closed.Contains(Subjects.allPoints[i].adjoinTriangles[j])))
+
+                    delaunayTriangles.Add(Collections.allTriangles1[closed[i]]);
+                    //Debug.Log(closed[i]);
+                }
+                //Debug.Log("end");
+
+                return delaunayTriangles;
+            }
+            else 
+            {
+                List<Triangle> delaunayTriangles = new List<Triangle>();
+
+                Collections.allTriangles2 = new List<Triangle>();
+                Collections.allTriangles2.Clear();
+
+                List<int> open = new List<int>();
+                List<int> closed = new List<int>();
+
+                Collections.allTriangles2.Add(superTriangle); ;
+                open.Add(0);
+
+                for (int i = 0; i < triangulationPoints.Count - 3; i++)
+                {
+
+                    List<DelaunayEdge> polygon = new List<DelaunayEdge>();
+
+                    for (int j = open.Count - 1; j >= 0; j--)
                     {
-                        Subjects.allPoints[i].adjoinTriangles.RemoveAt(j);
+                        double dx = triangulationPoints.ElementAt(i).x - Collections.allTriangles2[open[j]].center.x;
+
+                        if (dx > 0.0 && dx * dx > Collections.allTriangles2[open[j]].radius * Collections.allTriangles2[open[j]].radius)
+                        {
+                            closed.Add(open[j]);
+                            open.RemoveAt(j);
+                            continue;
+                        }
+
+                        if (Collections.allTriangles2[open[j]].ContainsInCircumcircle(triangulationPoints.ElementAt(i)))
+                        {
+                            polygon.Add(new DelaunayEdge(Collections.allTriangles2[open[j]].vertex1, Collections.allTriangles2[open[j]].vertex2));
+                            polygon.Add(new DelaunayEdge(Collections.allTriangles2[open[j]].vertex2, Collections.allTriangles2[open[j]].vertex3));
+                            polygon.Add(new DelaunayEdge(Collections.allTriangles2[open[j]].vertex3, Collections.allTriangles2[open[j]].vertex1));
+
+                            triangulationPoints[Collections.allTriangles2[open[j]].vertex1].adjoinTriangles.Remove(open[j]);
+                            triangulationPoints[Collections.allTriangles2[open[j]].vertex2].adjoinTriangles.Remove(open[j]);
+                            triangulationPoints[Collections.allTriangles2[open[j]].vertex3].adjoinTriangles.Remove(open[j]);
+
+                            open.RemoveAt(j);
+
+                        }
+                    }
+
+                    for (int j = polygon.Count - 2; j >= 0; j--)
+                    {
+                        for (int k = polygon.Count - 1; k >= j + 1; k--)
+                        {
+                            if (polygon[j] == polygon[k])
+                            {
+                                polygon.RemoveAt(k);
+                                polygon.RemoveAt(j);
+                                k--;
+                                continue;
+                            }
+                        }
+                    }
+
+                    for (int j = 0; j < polygon.Count; j++)
+                    {
+                        Triangle triangle = new Triangle(polygon[j].start, polygon[j].end, i,2);
+
+                        int currentTriangle = Collections.allTriangles2.Count;
+
+                        Collections.allTriangles2.Add(triangle);
+
+                        open.Add(currentTriangle);
+
+                        if (!triangulationPoints[i].adjoinTriangles.Contains(currentTriangle))
+                        {
+                            triangulationPoints[i].adjoinTriangles.Add(currentTriangle);
+                        }
+                        if (!triangulationPoints[polygon[j].start].adjoinTriangles.Contains(currentTriangle))
+                        {
+                            triangulationPoints[polygon[j].start].adjoinTriangles.Add(currentTriangle);
+                        }
+                        if (!triangulationPoints[polygon[j].end].adjoinTriangles.Contains(currentTriangle))
+                        {
+                            triangulationPoints[polygon[j].end].adjoinTriangles.Add(currentTriangle);
+                        }
+
                     }
                 }
+
+                //Debug.Log("start");
+                for (int i = 0; i < open.Count; i++)
+                {
+
+                    delaunayTriangles.Add(Collections.allTriangles2[open[i]]);
+                    //Debug.Log(open[i]);
+                }
+
+                for (int i = 0; i < closed.Count; i++)
+                {
+
+                    delaunayTriangles.Add(Collections.allTriangles2[closed[i]]);
+                    //Debug.Log(closed[i]);
+                }
+                //Debug.Log("end");
+
+                return delaunayTriangles;
             }
-            */
-
-            //Debug.Log("start");
-            for (int i = 0; i < open.Count; i++)
-            {
-
-                delaunayTriangles.Add(Collections.allTriangles[open[i]]);
-                //Debug.Log(open[i]);
-            }
-            
-            for (int i = 0; i < closed.Count; i++)
-            {
-
-                delaunayTriangles.Add(Collections.allTriangles[closed[i]]);
-                //Debug.Log(closed[i]);
-            }
-            //Debug.Log("end");
-
-            return delaunayTriangles;
         }
 
-        public static Triangle SuperTriangle(List<Point> triangulationPoints)
+        public static Triangle SuperTriangle(List<Point> triangulationPoints,int index)
         {
             double M = triangulationPoints[0].x;
 
@@ -166,7 +258,7 @@ namespace Voronoi_Delaunay
             Point sp3 = new Point(-100 * M, -100 * M, 0);
             triangulationPoints.Add(sp3);
 
-            return new Triangle(triangulationPoints.Count - 3, triangulationPoints.Count - 2, triangulationPoints.Count - 1);
+            return new Triangle(triangulationPoints.Count - 3, triangulationPoints.Count - 2, triangulationPoints.Count - 1,index);
         }
     }
 }

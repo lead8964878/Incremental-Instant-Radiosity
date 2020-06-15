@@ -20,36 +20,70 @@ namespace Voronoi_Delaunay
             this.vertex3 = -1;
         }
 
-        public Triangle(int vertex1, int vertex2, int vertex3)
+        public Triangle(int vertex1, int vertex2, int vertex3,int index)
         {
-            double x1, x2, x3, y1, y2, y3;
-            double x, y;
+            if (index == 1)
+            {
+                double x1, x2, x3, y1, y2, y3;
+                double x, y;
 
-            this.vertex1 = vertex1;
-            this.vertex2 = vertex2;
-            this.vertex3 = vertex3;
+                this.vertex1 = vertex1;
+                this.vertex2 = vertex2;
+                this.vertex3 = vertex3;
 
-            x1 = Collections.allPoints[vertex1].x;
-            x2 = Collections.allPoints[vertex2].x;
-            x3 = Collections.allPoints[vertex3].x;
-            y1 = Collections.allPoints[vertex1].y;
-            y2 = Collections.allPoints[vertex2].y;
-            y3 = Collections.allPoints[vertex3].y;
+                x1 = Collections.allPoints1[vertex1].x;
+                x2 = Collections.allPoints1[vertex2].x;
+                x3 = Collections.allPoints1[vertex3].x;
+                y1 = Collections.allPoints1[vertex1].y;
+                y2 = Collections.allPoints1[vertex2].y;
+                y3 = Collections.allPoints1[vertex3].y;
 
-            x = ((y2 - y1) * (y3 * y3 - y1 * y1 + x3 * x3 - x1 * x1) - (y3 - y1) * (y2 * y2 - y1 * y1 + x2 * x2 - x1 * x1)) / (2 * (x3 - x1) * (y2 - y1) - 2 * ((x2 - x1) * (y3 - y1)));
-            y = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1) * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1)) / (2 * (y3 - y1) * (x2 - x1) - 2 * ((y2 - y1) * (x3 - x1)));
+                x = ((y2 - y1) * (y3 * y3 - y1 * y1 + x3 * x3 - x1 * x1) - (y3 - y1) * (y2 * y2 - y1 * y1 + x2 * x2 - x1 * x1)) / (2 * (x3 - x1) * (y2 - y1) - 2 * ((x2 - x1) * (y3 - y1)));
+                y = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1) * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1)) / (2 * (y3 - y1) * (x2 - x1) - 2 * ((y2 - y1) * (x3 - x1)));
 
-            this.center = new Point(x, y);
-            this.radius = Math.Sqrt(Math.Abs(Collections.allPoints[vertex1].x - x) * Math.Abs(Collections.allPoints[vertex1].x - x) + Math.Abs(Collections.allPoints[vertex1].y - y) * Math.Abs(Collections.allPoints[vertex1].y - y));
+                this.center = new Point(x, y);
+                this.radius = Math.Sqrt(Math.Abs(Collections.allPoints1[vertex1].x - x) * Math.Abs(Collections.allPoints1[vertex1].x - x) + Math.Abs(Collections.allPoints1[vertex1].y - y) * Math.Abs(Collections.allPoints1[vertex1].y - y));
 
-            Point p1 = new Point(x1, y1);
-            Point p2 = new Point(x2, y2);
-            Point p3 = new Point(x3, y3);
-            Point d2st = p1-p2;
-            Point d2ed = p3-p2;
+                Point p1 = new Point(x1, y1);
+                Point p2 = new Point(x2, y2);
+                Point p3 = new Point(x3, y3);
+                Point d2st = p1 - p2;
+                Point d2ed = p3 - p2;
 
-            Point crossVal = d2st.cross(d2st, d2ed);
-            this.areaSize = Math.Sqrt(crossVal.x * crossVal.x + crossVal.y * crossVal.y + crossVal.z * crossVal.z) * 0.5;
+                Point crossVal = d2st.cross(d2st, d2ed);
+                this.areaSize = Math.Sqrt(crossVal.x * crossVal.x + crossVal.y * crossVal.y + crossVal.z * crossVal.z) * 0.5;
+            }
+            else
+            {
+                double x1, x2, x3, y1, y2, y3;
+                double x, y;
+
+                this.vertex1 = vertex1;
+                this.vertex2 = vertex2;
+                this.vertex3 = vertex3;
+
+                x1 = Collections.allPoints2[vertex1].x;
+                x2 = Collections.allPoints2[vertex2].x;
+                x3 = Collections.allPoints2[vertex3].x;
+                y1 = Collections.allPoints2[vertex1].y;
+                y2 = Collections.allPoints2[vertex2].y;
+                y3 = Collections.allPoints2[vertex3].y;
+
+                x = ((y2 - y1) * (y3 * y3 - y1 * y1 + x3 * x3 - x1 * x1) - (y3 - y1) * (y2 * y2 - y1 * y1 + x2 * x2 - x1 * x1)) / (2 * (x3 - x1) * (y2 - y1) - 2 * ((x2 - x1) * (y3 - y1)));
+                y = ((x2 - x1) * (x3 * x3 - x1 * x1 + y3 * y3 - y1 * y1) - (x3 - x1) * (x2 * x2 - x1 * x1 + y2 * y2 - y1 * y1)) / (2 * (y3 - y1) * (x2 - x1) - 2 * ((y2 - y1) * (x3 - x1)));
+
+                this.center = new Point(x, y);
+                this.radius = Math.Sqrt(Math.Abs(Collections.allPoints2[vertex1].x - x) * Math.Abs(Collections.allPoints2[vertex1].x - x) + Math.Abs(Collections.allPoints2[vertex1].y - y) * Math.Abs(Collections.allPoints2[vertex1].y - y));
+
+                Point p1 = new Point(x1, y1);
+                Point p2 = new Point(x2, y2);
+                Point p3 = new Point(x3, y3);
+                Point d2st = p1 - p2;
+                Point d2ed = p3 - p2;
+
+                Point crossVal = d2st.cross(d2st, d2ed);
+                this.areaSize = Math.Sqrt(crossVal.x * crossVal.x + crossVal.y * crossVal.y + crossVal.z * crossVal.z) * 0.5;
+            }
         }
 
         public bool ContainsInCircumcircle(Point point)

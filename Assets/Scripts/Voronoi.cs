@@ -10,34 +10,74 @@ namespace Voronoi_Delaunay
 {
     class Voronoi
     {
-        public static List<VoronoiEdge> VoronoiEdges(List<DelaunayEdge> delaunayEdges)
+
+        static List<Point> polygonSides;
+
+        public static void setPolygonSides(List<Point> _polygonSides)
         {
-            List<VoronoiEdge> voronoiEdgeList = new List<VoronoiEdge>();
+            polygonSides = _polygonSides;
+        }
 
-            for (int i = 0; i < delaunayEdges.Count; i++)
+        public static List<VoronoiEdge> VoronoiEdges(List<DelaunayEdge> delaunayEdges,int index)
+        {
+            if (index == 1)
             {
+                List<VoronoiEdge> voronoiEdgeList = new List<VoronoiEdge>();
 
-                List<int> neighbours = new List<int>();
-                for (int j = 0; j < Collections.allPoints[delaunayEdges[i].start].adjoinTriangles.Count; j++)
+                for (int i = 0; i < delaunayEdges.Count; i++)
                 {
 
-                    
-
-                    for (int k = 0; k < Collections.allPoints[delaunayEdges[i].end].adjoinTriangles.Count; k++)
+                    List<int> neighbours = new List<int>();
+                    for (int j = 0; j < Collections.allPoints1[delaunayEdges[i].start].adjoinTriangles.Count; j++)
                     {
-                        if (Collections.allPoints[delaunayEdges[i].start].adjoinTriangles[j] == Collections.allPoints[delaunayEdges[i].end].adjoinTriangles[k])
-                        {
 
-                            neighbours.Add(Collections.allPoints[delaunayEdges[i].start].adjoinTriangles[j]);
+
+
+                        for (int k = 0; k < Collections.allPoints1[delaunayEdges[i].end].adjoinTriangles.Count; k++)
+                        {
+                            if (Collections.allPoints1[delaunayEdges[i].start].adjoinTriangles[j] == Collections.allPoints1[delaunayEdges[i].end].adjoinTriangles[k])
+                            {
+
+                                neighbours.Add(Collections.allPoints1[delaunayEdges[i].start].adjoinTriangles[j]);
+                            }
                         }
                     }
+                    VoronoiEdge voronoiEdge = new VoronoiEdge(Collections.allTriangles1[neighbours[0]].center, Collections.allTriangles1[neighbours[1]].center);
+                    voronoiEdgeList.Add(voronoiEdge);
                 }
-                VoronoiEdge voronoiEdge = new VoronoiEdge(Collections.allTriangles[neighbours[0]].center, Collections.allTriangles[neighbours[1]].center);
-                voronoiEdgeList.Add(voronoiEdge);
-            }
 
-            
-            return voronoiEdgeList;
+
+                return voronoiEdgeList;
+            }
+            else
+            {
+                List<VoronoiEdge> voronoiEdgeList = new List<VoronoiEdge>();
+
+                for (int i = 0; i < delaunayEdges.Count; i++)
+                {
+
+                    List<int> neighbours = new List<int>();
+                    for (int j = 0; j < Collections.allPoints2[delaunayEdges[i].start].adjoinTriangles.Count; j++)
+                    {
+
+
+
+                        for (int k = 0; k < Collections.allPoints2[delaunayEdges[i].end].adjoinTriangles.Count; k++)
+                        {
+                            if (Collections.allPoints2[delaunayEdges[i].start].adjoinTriangles[j] == Collections.allPoints2[delaunayEdges[i].end].adjoinTriangles[k])
+                            {
+
+                                neighbours.Add(Collections.allPoints2[delaunayEdges[i].start].adjoinTriangles[j]);
+                            }
+                        }
+                    }
+                    VoronoiEdge voronoiEdge = new VoronoiEdge(Collections.allTriangles2[neighbours[0]].center, Collections.allTriangles2[neighbours[1]].center);
+                    voronoiEdgeList.Add(voronoiEdge);
+                }
+
+
+                return voronoiEdgeList;
+            }
         }
 
         public static int cn_PnPoly(Point P,ref List<Point> V)
@@ -121,47 +161,93 @@ namespace Voronoi_Delaunay
             return 1;
         }
 
-        public static List<double> calculateAreas()
-        {
-            List<double> allAreas = new List<double>();
-            for(int i = 0; i < Collections.allPoints.Count; i++)
-            {
-                List<Tuple<Point, double>> topPoints = new List<Tuple<Point, double>>();
-                List<Tuple<Point, double>> bottomPoints = new List<Tuple<Point, double>>();
+        //public static List<double> calculateAreas()
+        //{
+        //    List<double> allAreas = new List<double>();
+        //    double totalArea = 0;
+        //    for(int i = 0; i < Collections.allPoints1.Count; i++)
+        //    {
+        //        List<Tuple<Point, double>> topPoints = new List<Tuple<Point, double>>();
+        //        List<Tuple<Point, double>> bottomPoints = new List<Tuple<Point, double>>();
 
-                Point delaunayPoint = Collections.allPoints[i];
+        //        Point delaunayPoint = Collections.allPoints1[i];
 
-                for (int j = 0; j < delaunayPoint.adjoinTriangles.Count; j++)
-                {
-                    Point center = Collections.allTriangles[delaunayPoint.adjoinTriangles[j]].center;
-                    double dotValue = delaunayPoint.x * center.x + delaunayPoint.y * center.y + delaunayPoint.z * center.z;
-                    if(center.y >= delaunayPoint.y)
-                    {
-                        topPoints.Add(new Tuple<Point, double>(center, dotValue));
-                    }
-                    else
-                    {
-                        bottomPoints.Add(new Tuple<Point, double>(center, dotValue));
-                    }
-                }
-                //check topPoints
-                topPoints.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-                bottomPoints.Sort((a, b) => a.Item2.CompareTo(b.Item2));
-                topPoints.AddRange(bottomPoints);
+        //        for (int j = 0; j < delaunayPoint.adjoinTriangles.Count; j++)
+        //        {
+        //            Point center = Collections.allTriangles[delaunayPoint.adjoinTriangles[j]].center;
+        //            double dotValue = delaunayPoint.x * center.x + delaunayPoint.y * center.y + delaunayPoint.z * center.z;
+        //            if(center.y >= delaunayPoint.y)
+        //            {
+        //                topPoints.Add(new Tuple<Point, double>(center, dotValue));
+        //            }
+        //            else
+        //            {
+        //                bottomPoints.Add(new Tuple<Point, double>(center, dotValue));
+        //            }
+        //        }
+        //        //check topPoints
+        //        topPoints.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+        //        bottomPoints.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+        //        topPoints.AddRange(bottomPoints);
+        //        List<Point> result = new List<Point>();            
+        //        for (int j = 0; j < topPoints.Count; j++) 
+        //        {
+        //            Point st = topPoints[j].Item1;
+        //            Point ed = topPoints[(j + 1) % topPoints.Count].Item1;
+        //            int startPointInsideOutside = Voronoi.cn_PnPoly(st, ref polygonSides);
+        //            int endPointInsideOutside = Voronoi.cn_PnPoly(ed, ref polygonSides);
 
-                double area = 0.0f;
-                for(int j = 0; j < topPoints.Count; j++)
-                {
-                    Point d2st = topPoints[j].Item1 - delaunayPoint;
-                    Point d2ed = topPoints[(j + 1) % topPoints.Count].Item1 - delaunayPoint;
 
-                    Point crossVal = d2st.cross(d2st, d2ed);
-                    area += Math.Sqrt(crossVal.x * crossVal.x + crossVal.y * crossVal.y + crossVal.z * crossVal.z) * 0.5;
-                }
-                allAreas.Add(area);
-            }
-            return allAreas;
-        }
+
+        //            if (startPointInsideOutside == 0 && endPointInsideOutside == 0)
+        //            {
+
+        //            }
+        //            else if(startPointInsideOutside == 1 && endPointInsideOutside == 1)
+        //            {
+        //                result.Add(st);
+        //            }
+        //            else
+        //            {
+        //                Point o0 = new Point(0,0,0);
+        //                Point o1 = o0;
+        //                if (Voronoi.intersect2D_SegPoly(st, ed, ref polygonSides, ref o0, ref o1) == 1)
+        //                {
+
+        //                    if (st != o0)
+        //                    {
+                                
+        //                        st = o0;
+        //                    }
+        //                    if (ed != o1)
+        //                    {
+        //                        ed = o1;
+
+        //                    }
+        //                    result.Add(st);
+        //                    result.Add(ed);
+        //                }
+        //            }
+        //        }
+
+        //        double area = 0.0f;
+        //        for(int j = 0; j < result.Count; j++)
+        //        {
+        //            Point d2st = result[j] - delaunayPoint;
+        //            Point d2ed = result[(j + 1) % result.Count] - delaunayPoint;
+
+        //            Point crossVal = d2st.cross(d2st, d2ed);
+        //            area += Math.Sqrt(crossVal.x * crossVal.x + crossVal.y * crossVal.y + crossVal.z * crossVal.z) * 0.5;
+        //        }
+        //        totalArea += area;
+        //        allAreas.Add(area);
+        //    }
+        //    for(int i=0;i<allAreas.Count;i++)
+        //    {
+        //        allAreas[i] /= totalArea;
+        //    }
+        //    return allAreas;
+        //}
 
 
         public static List<VoronoiEdge> VoronoiEdges(List<Triangle> allTriangles)
