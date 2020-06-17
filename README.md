@@ -1,2 +1,2 @@
 # Incremental-Instant-Radiosity
-NTUST CSIE 
+NTUST CSIE 3D Game Project2
